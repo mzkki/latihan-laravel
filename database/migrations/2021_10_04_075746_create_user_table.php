@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateUserTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('user', function (Blueprint $table) {
+            $table->id();
+            $table->string('username', 191);
+            $table->string('password', 191);
+            $table->string('role', 191);
+            $table->timestamps();
+            $table->bigInteger('division_id')->unsigned();
+
+            $table->foreign('division_id')->references('id')->on('divisions');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('user');
+    }
+}
